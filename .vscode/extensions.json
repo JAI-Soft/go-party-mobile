@@ -1,16 +1,16 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "mikestead.dotenv",
-    "csstools.postcss",
-    "bradlc.vscode-tailwindcss",
-    "expo.vscode-expo-tools",
-    "usernamehw.errorlens",
-    "ms-vscode.vscode-typescript-next",
-    "austenc.tailwind-docs",
-    "jasonnutter.search-node-modules",
-    "dsznajder.es7-react-js-snippets",
-    "aaron-bond.better-comments"
-  ]
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"mikestead.dotenv",
+		"csstools.postcss",
+		"bradlc.vscode-tailwindcss",
+		"expo.vscode-expo-tools",
+		"usernamehw.errorlens",
+		"ms-vscode.vscode-typescript-next",
+		"austenc.tailwind-docs",
+		"jasonnutter.search-node-modules",
+		"dsznajder.es7-react-js-snippets",
+		"aaron-bond.better-comments"
+	]
 }
