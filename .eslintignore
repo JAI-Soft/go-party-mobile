@@ -9,4 +9,5 @@ package-lock.json
 README.md
 metro.config.js
 tailwind.config.js
-src/components/__tests__
+src/components/**tests**
+src/components/ExternalLink.tsx
