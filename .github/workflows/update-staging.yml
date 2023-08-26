@@ -1,8 +1,8 @@
 name: update-staging
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - develop
 
 jobs:
   update:
@@ -40,4 +40,4 @@ jobs:
       - name: Create preview
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update --auto
+          command: eas update --branch preview --message "Updating the staging app"
