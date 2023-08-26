@@ -8,18 +8,6 @@ jobs:
     name: EAS build
     runs-on: ubuntu-latest
     steps:
-      - name: Check for EXPO_TOKEN_STAGING
-        run: |
-          if [ -z "$(( secrets.EXPO_TOKEN_STAGING ))" ]; then
-            echo "You must provide an EXPO_TOKEN_STAGING secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
-            exit 1
-          fi
-
-      - name: "Set ENV"
-        run: echo "$(BASE_URL)"     
-        env:
-          BASE_URL: https://exampleapp.com    
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
