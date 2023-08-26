@@ -26,5 +26,4 @@ jobs:
         run: yarn install
 
       - name: 🚀 Build android app
-        run: |
-          echo "no" | eas build --profile preview --platform android
+        run: eas build --profile preview --platform android --no-wait
