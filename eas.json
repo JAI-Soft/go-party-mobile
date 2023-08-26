@@ -8,11 +8,11 @@
       "distribution": "internal",
       "channel": "development"
     },
-    "develop": {
+    "preview": {
       "distribution": "internal",
       "channel": "preview"
     },
-    "master": {
+    "production": {
       "channel": "production"
     }
   },
