@@ -20,8 +20,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
+        "foregroundImage": "./assets/images/icon.png"
       },
+      "package": "com.jaisoft.goparty",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
