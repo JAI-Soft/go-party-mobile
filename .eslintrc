@@ -75,7 +75,10 @@
 				"react/no-unstable-nested-components": "off",
 				"react/no-danger": "off",
 				"global-require": "off",
-				"@typescript-eslint/naming-convention": "off"
+				"@typescript-eslint/naming-convention": "off",
+        "no-console": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "react/jsx-no-constructed-context-values": "off",
       }
     }
   ]
