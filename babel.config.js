@@ -10,7 +10,11 @@ module.exports = function (api) {
 				"module-resolver",
 				{
 					alias: {
-						"@Components": "./src/components"
+						"@Components": "./src/components",
+						"@Services": "./src/services",
+						"@Context": "./src/context",
+						"@Hooks": "./src/hooks",
+						"@Types": "./src/types"
 					},
 					extensions: [".js", ".jsx", ".ts", ".tsx"]
 				}

@@ -1,5 +1,7 @@
 import '../global.css';
 
+import { Text, View } from '@Components/Themed';
+import { AuthProvider } from '@Context/auth';
 import * as eva from '@eva-design/eva';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
@@ -45,7 +47,11 @@ export default function RootLayout() {
 	}, [loaded]);
 
 	if (!loaded) {
-		return null;
+		return (
+			<View className="flex-1 items-center justify-center">
+				<Text className="text-2xl text-teal-200">Loading...</Text>
+			</View>
+		);
 	}
 
 	return <RootLayoutNav />;
@@ -55,13 +61,15 @@ function RootLayoutNav() {
 	const colorScheme = useColorScheme();
 
 	return (
-		<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-			<ApplicationProvider
-				{...eva}
-				theme={colorScheme === 'dark' ? eva.dark : eva.light}
-			>
-				<Slot />
-			</ApplicationProvider>
-		</ThemeProvider>
+		<AuthProvider>
+			<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+				<ApplicationProvider
+					{...eva}
+					theme={colorScheme === 'dark' ? eva.dark : eva.light}
+				>
+					<Slot />
+				</ApplicationProvider>
+			</ThemeProvider>
+		</AuthProvider>
 	);
 }

@@ -12,7 +12,11 @@
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"paths": {
-			"@Components/*": ["src/components/*"]
+			"@Components/*": ["src/components/*"],
+			"@Services/*": ["src/services/*"],
+			"@Hooks/*": ["src/hooks/*"],
+			"@Context/*": ["src/context/*"],
+			"@Types/*": ["src/types/*"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
