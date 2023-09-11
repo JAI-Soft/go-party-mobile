@@ -1,40 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from '@Services/api';
-import type { User, UserLogin, UserRegister } from '@Types/index';
 import { router, useRootNavigationState, useSegments } from 'expo-router';
 import * as React from 'react';
 
-interface ContextInterface {
-	user: User | null;
-	signIn: (email: string, password: string) => void;
-	signUp: (
-		email: string,
-		password: string,
-		password_confirmation: string,
-		username: string,
-		birthday: string,
-		first_name: string,
-		surname: string
-	) => void;
-	signOut: () => void;
-}
+const AuthContext = React.createContext(null);
 
-const userInitialState = {
-	id: '',
-	token: ''
-};
-
-const contextInitialState: ContextInterface = {
-	user: userInitialState,
-	signIn: async () => {},
-	signUp: async () => {},
-	signOut: () => {}
-};
-
-const AuthContext = React.createContext(contextInitialState);
-
-export function useAuth(): ContextInterface {
-	const context = React.useContext<ContextInterface>(AuthContext);
+export function useAuth() {
+	const context = React.useContext(AuthContext);
 
 	if (context === undefined) {
 		throw new Error('useAuth must be used within an AuthProvider');
@@ -43,7 +15,7 @@ export function useAuth(): ContextInterface {
 	return context;
 }
 
-function useProtectedRoute(user: User) {
+function useProtectedRoute(user) {
 	const segments = useSegments();
 	const navigationState = useRootNavigationState();
 
@@ -54,43 +26,60 @@ function useProtectedRoute(user: User) {
 
 		const isAuthGroup = segments[0] === '/(auth)';
 
-		if (!user.id && !isAuthGroup) {
+		if (!user && !isAuthGroup) {
 			router.replace('/(auth)/welcome');
 			setHasNavigated(true);
-		} else if (user.id && isAuthGroup) {
+		} else if (user && isAuthGroup) {
 			router.replace('/(tabs)');
 			setHasNavigated(true);
 		}
-	}, [user.id, segments, navigationState, hasNavigated]);
+	}, [user, segments, navigationState, hasNavigated]);
 }
 
+/**
+ * Provides authentication context to the app.
+ * @param {Object} props - Component props.
+ * @param {React.ReactNode} props.children - Child components to be rendered.
+ * @returns {JSX.Element} - JSX element.
+ */
 export function AuthProvider({
 	children
-}: React.PropsWithChildren): JSX.Element {
-	const [user, setUser] = React.useState<User>(userInitialState);
+}) {
+	const [user, setUser] = React.useState(null);
+	const [isLoading, setIsLoading] = React.useState(true);
 
 	useProtectedRoute(user);
 
 	React.useEffect(() => {
+		/**
+		 * Gets user data from AsyncStorage and sets it to state.
+		 * @returns {void}
+		 */
 		const getUser = async () => {
 			const user = await AsyncStorage.getItem('user');
 			if (user) {
 				setUser(JSON.parse(user));
-				router.replace('/(tabs)');
 			}
+			setIsLoading(false);
 		};
 		getUser();
 	}, []);
 
-	const signIn = async (email: string, password: string) => {
-		const data: UserLogin = {
+	/**
+	 * Signs in the user with the provided email and password.
+	 * @param {string} email - User's email.
+	 * @param {string} password - User's password.
+	 * @returns {void}
+	 */
+	const signIn = async (email, password) => {
+		const data = {
 			email,
 			password
 		};
 		const response = await Api.login(data);
 
 		if (response.user) {
-			const userData: User = {
+			const userData = {
 				id: response.user.id,
 				token: response.token
 			};
@@ -102,16 +91,27 @@ export function AuthProvider({
 		}
 	};
 
+	/**
+	 * Signs up the user with the provided data.
+	 * @param {string} email - User's email.
+	 * @param {string} password - User's password.
+	 * @param {string} password_confirmation - User's password confirmation.
+	 * @param {string} username - User's username.
+	 * @param {string} birthday - User's birthday.
+	 * @param {string} first_name - User's first name.
+	 * @param {string} surname - User's surname.
+	 * @returns {void}
+	 */
 	const signUp = async (
-		email: string,
-		password: string,
-		password_confirmation: string,
-		username: string,
-		birthday: string,
-		first_name: string,
-		surname: string
+		email,
+		password,
+		password_confirmation,
+		username,
+		birthday,
+		first_name,
+		surname
 	) => {
-		const data: UserRegister = {
+		const data = {
 			email,
 			password,
 			password_confirmation,
@@ -123,7 +123,7 @@ export function AuthProvider({
 		const response = await Api.signUp(data);
 
 		if (response.user) {
-			const userData: User = {
+			const userData = {
 				id: response.user.id,
 				token: response.token
 			};
@@ -134,8 +134,12 @@ export function AuthProvider({
 		}
 	};
 
+	/**
+	 * Signs out the user.
+	 * @returns {void}
+	 */
 	const signOut = () => {
-		setUser(userInitialState);
+		setUser(null);
 		AsyncStorage.removeItem('user');
 		router.replace('/(auth)/welcome');
 	};
@@ -146,7 +150,8 @@ export function AuthProvider({
 				user,
 				signIn,
 				signOut,
-				signUp
+				signUp,
+				isLoading,
 			}}
 		>
 			{children}

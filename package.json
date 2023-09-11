@@ -7,20 +7,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
-    "lint": "eslint .",
-    "format": "eslint --fix . && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
-    "check-types": "tsc --noEmit --pretty",
-    "prepare": "husky install"
+    "test": "jest --watchAll"
   },
   "jest": {
     "preset": "jest-expo"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ]
   },
   "dependencies": {
     "@eva-design/eva": "^2.2.0",
@@ -33,6 +23,7 @@
     "expo-font": "~11.4.0",
     "expo-linking": "~5.0.2",
     "expo-router": "2.0.0",
+    "expo-secure-store": "~12.3.1",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",

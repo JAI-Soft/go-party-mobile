@@ -1,18 +1,20 @@
 import EditScreenInfo from '@Components/EditScreenInfo';
 import { Text, View } from '@Components/Themed';
 import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function TabTwoScreen() {
+
+export default function Profile() {
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Tab Two</Text>
+		<SafeAreaView style={styles.container}>
+			<Text style={styles.title}>Profile</Text>
 			<View
 				style={styles.separator}
 				lightColor="#eee"
 				darkColor="rgba(255,255,255,0.1)"
 			/>
-			<EditScreenInfo path="app/(tabs)/two.tsx" />
-		</View>
+			<EditScreenInfo path="app/(tabs)/profile.jsx" />
+		</SafeAreaView>
 	);
 }
 

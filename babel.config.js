@@ -14,7 +14,7 @@ module.exports = function (api) {
 						"@Services": "./src/services",
 						"@Context": "./src/context",
 						"@Hooks": "./src/hooks",
-						"@Types": "./src/types"
+						"@Stores": "./src/stores"
 					},
 					extensions: [".js", ".jsx", ".ts", ".tsx"]
 				}

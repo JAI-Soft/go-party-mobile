@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 
 const welcome = () => {
 	return (
-		<View className="flex-1 items-center justify-center">
+		<View className="items-center justify-center flex-1">
 			<Text className="text-2xl text-teal-200">Bienvenido</Text>
 			<View className="flex-row items-center justify-center space-x-4">
 				<Link href="/(auth)/sign-in" asChild>

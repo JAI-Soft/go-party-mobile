@@ -11,9 +11,10 @@ import {
 } from '@react-navigation/native';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { useFonts } from 'expo-font';
-import { Slot, SplashScreen } from 'expo-router';
+import { Slot, SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { useAuth } from '../src/context/auth';
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -48,7 +49,7 @@ export default function RootLayout() {
 
 	if (!loaded) {
 		return (
-			<View className="flex-1 items-center justify-center">
+			<View className="items-center justify-center flex-1">
 				<Text className="text-2xl text-teal-200">Loading...</Text>
 			</View>
 		);
@@ -67,9 +68,25 @@ function RootLayoutNav() {
 					{...eva}
 					theme={colorScheme === 'dark' ? eva.dark : eva.light}
 				>
-					<Slot />
+					<MainNav />	
 				</ApplicationProvider>
 			</ThemeProvider>
 		</AuthProvider>
 	);
+}
+
+function MainNav() {
+	const { isLoading } = useAuth();
+
+	if (isLoading) {
+		return (
+			<View className="items-center justify-center flex-1">
+				<Text className="text-2xl text-teal-200">Loading...</Text>
+			</View>
+		);
+	} else {
+		return (
+			<Slot />
+		);
+	}
 }
